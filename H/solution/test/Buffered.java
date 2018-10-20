@@ -1,15 +1,15 @@
 import java.util.*;
 import java.io.*;
 
-public class scSolution {
+public class Solution {
 	public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 
-        st = new StringTokenizer(br.readLine());
+		st = new StringTokenizer(br.readLine());
 		int[] queue = new int[N + 1];
 		for (int i = 1; i <= N; i++)
 			queue[i] = Integer.parseInt(st.nextToken());
@@ -20,10 +20,10 @@ public class scSolution {
 
 		while (M-- > 0) {
 			int T = Integer.parseInt(br.readLine());
-            bw.write(lowerBound(psum, T) + "\n");
+			bw.write(lowerBound(psum, T) + "\n");
 		}
 
-        bw.close();
+		bw.close();
 	}
 
 	private static int lowerBound(int[] array, int value) {
