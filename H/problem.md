@@ -1,6 +1,3 @@
-### 분류
-Prefix Sum, Binary Search
-
 ### 제목
 Prediction Queue
 
@@ -37,3 +34,6 @@ M개의 각 줄 마다 혁진이가 일 할 수 있는 시간동안 처리할 �
 4<br>
 5<br>
 7<br>
+
+### 분류
+Prefix Sum, Binary Search
