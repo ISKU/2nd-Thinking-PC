@@ -3,15 +3,15 @@ import java.io.*;
 
 public class DataGenerator {
 
-	private static final int MIN_PIECE_Y = 1;
-	private static final int MAX_PIECE_Y = 10;
-	private static final int MIN_PIECE_X = 1;
-	private static final int MAX_PIECE_X = 9;
-	private static final int[] RANGE_KING_Y = new int[] { 1, 2, 3, 8, 9, 10 };
-	private static final int[] RANGE_KING_X = new int[] { 4, 5, 6 };
+	private static final int MIN_PIECE_Y = 0;
+	private static final int MAX_PIECE_Y = 9;
+	private static final int MIN_PIECE_X = 0;
+	private static final int MAX_PIECE_X = 8;
+	private static final int[] RANGE_KING_Y = new int[] { 0, 1, 2, 7, 8, 9 };
+	private static final int[] RANGE_KING_X = new int[] { 3, 4, 5 };
 
 	private static final int START = 1;
-	private static final int END = 48;
+	private static final int END = 50;
 
 	private static final int[] dy = new int[] { -3, -3, -2, 2, 3, 3, 2, -2 };
 	private static final int[] dx = new int[] { -2, 2, 3, 3, 2, -2, -3, -3 };
@@ -58,7 +58,7 @@ public class DataGenerator {
 
 	private static int solve(Piece sang, Piece king) {
 		Queue<Piece> q = new LinkedList<Piece>();
-		boolean[][] visited = new boolean[Y + 1][X + 1];
+		boolean[][] visited = new boolean[Y][X];
 		q.add(sang);
 		visited[sang.y][sang.x] = true;
 
@@ -70,17 +70,17 @@ public class DataGenerator {
 			for (int i = 0; i < 8; i++) {
 				int y = u.y + ay[i];
 				int x = u.x + ax[i];
-				if (y < 1 || y > Y || x < 1 || x > X || (y == king.y && x == king.x))
+				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
 					continue;
 
 				y = u.y + cy[i];
 				x = u.x + cx[i];
-				if (y < 1 || y > Y || x < 1 || x > X || (y == king.y && x == king.x))
+				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
 					continue;
 
 				y = u.y + dy[i];
 				x = u.x + dx[i];
-				if (y < 1 || y > Y || x < 1 || x > X || visited[y][x])
+				if (y < 0 || y >= Y || x < 0 || x >= X || visited[y][x])
 					continue;
 
 				q.add(new Piece(y, x, u.count + 1));

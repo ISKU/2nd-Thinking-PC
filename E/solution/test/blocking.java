@@ -4,10 +4,6 @@ public class Solution {
 
 	private static final int[] dy = new int[] { -3, -3, -2, 2, 3, 3, 2, -2 };
 	private static final int[] dx = new int[] { -2, 2, 3, 3, 2, -2, -3, -3 };
-	private static final int[] cy = new int[] { -2, -2, -1, 1, 2, 2, 1, -1 };
-	private static final int[] cx = new int[] { -1, 1, 2, 2, 1, -1, -2, -2 };
-	private static final int[] ay = new int[] { -1, -1, 0, 0, 1, 1, 0, 0 };
-	private static final int[] ax = new int[] { 0, 0, 1, 1, 0, 0, -1, -1 };
 	private static final int Y = 10;
 	private static final int X = 9;
 
@@ -32,18 +28,8 @@ public class Solution {
 				return u.count;
 
 			for (int i = 0; i < 8; i++) {
-				int y = u.y + ay[i];
-				int x = u.x + ax[i];
-				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
-					continue;
-
-				y = u.y + cy[i];
-				x = u.x + cx[i];
-				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
-					continue;
-
-				y = u.y + dy[i];
-				x = u.x + dx[i];
+				int y = u.y + dy[i];
+				int x = u.x + dx[i];
 				if (y < 0 || y >= Y || x < 0 || x >= X || visited[y][x])
 					continue;
 
