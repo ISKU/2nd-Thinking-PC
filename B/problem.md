@@ -6,11 +6,15 @@
 
 <p>아래의 예시는 위에서 설명한 놀이의 과정을 2&times;2 크기의 색종이를 사용하여 상세하게 나타낸 그림이다.</p>
 
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/B/img/IMG_01.png)
+
 <ul>
 	<li>색종이를 <strong>왼쪽</strong>에서 <strong>오른쪽</strong>으로 정확히 반을 접는다.</li>
 	<li>겹치는 두 칸에 있는 수를 서로 더한다. 위 그림에서는 (1, 1)과 (1, 2)의 두 칸이 겹치고, (2, 1)과 (2, 2)의 두 칸도 겹치는 부분이다.</li>
 	<li>더한 값을 색종이 위에 다시 적는다.</li>
 </ul>
+
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/B/img/IMG_02.png)
 
 <ul>
 	<li>색종이를 <strong>아래쪽</strong>에서 <strong>위쪽</strong>으로 정확히 반을 접는다.</li>
