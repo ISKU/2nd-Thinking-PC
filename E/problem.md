@@ -4,11 +4,11 @@
 ### 문제
 <p>오랜만에 휴가를 나온 호근이는 문득 동아리방에 있는 장기가 하고 싶어졌다. 하지만 장기를 오랫동안 하지 않은 탓인지 예전에는 잘 쓰던 상을 제대로 쓰는 것이 너무 힘들었다. 호근이를 위해 상을 어떻게 써야 할지 도와주자.</p>
 
-
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_01.png)
 
 <p>위 그림은 10&times;9 크기의 장기판을 나타내며, 상은 (5, 4)에, 왕은 (1, 4)에 자리 잡고 있는 기물이다. (0, 3)과 (2, 5)를 꼭짓점으로 하는 사각형과, (7, 3)과 (9, 5)를 꼭짓점으로 하는 사각형은 왕이 위치할 수 있는 궁성이라고 한다. 상은 위 그림과 같이 8가지 방법으로 움직일 수 있는데, 상, 하, 좌, 우로 한 칸을 이동한 후에 같은 방향 쪽 대각선으로 두 칸 이동한다.</p>
 
-
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_02.png)
 
 <p>만약 상이 이동하는 경로에 위 그림과 같이 다른 기물이 있다면 상은 그쪽으로 이동할 수 없다. 또한, 상이 장기판을 벗어날 수도 없다.</p>
 
@@ -35,6 +35,8 @@
 1
 ```
 
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_03.png)
+
 ### 예제 입력 2
 ```
 0 1
@@ -46,6 +48,8 @@
 3
 ```
 
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_04.png)
+
 ### 예제 입력 3
 ```
 0 2
@@ -56,6 +60,8 @@
 ```
 5
 ```
+
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_05.png)
 
 ### 분류
 BFS
