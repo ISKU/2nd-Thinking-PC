@@ -1,0 +1,5 @@
+4
+MOVC 4 0 15
+NOT 3 0 4
+RL 2 2 4
+LSFTR 7 7 1
