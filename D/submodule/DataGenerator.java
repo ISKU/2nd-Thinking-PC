@@ -31,13 +31,14 @@ public class DataGenerator {
 
 			if (opcode.charAt(opcode.length() - 1) == 'C') {
 				int rD = random(MIN_R, MAX_R);
+				int rA = containsOpcode(opcode) ? 0 : random(MIN_R, MAX_R);
 				int C = random(MIN_C, MAX_C);
-				codes[i] = new Code(opcode, rD, C);
+				codes[i] = new Code(opcode, rD, rA, C, true);
 			} else {
 				int rD = random(MIN_R, MAX_R);
-				int rA = random(MIN_R, MAX_R);
+				int rA = containsOpcode(opcode) ? 0 : random(MIN_R, MAX_R);
 				int rB = random(MIN_R, MAX_R);
-				codes[i] = new Code(opcode, rD, rA, rB);
+				codes[i] = new Code(opcode, rD, rA, rB, false);
 			}
 		}
 
@@ -55,8 +56,9 @@ public class DataGenerator {
 
 			if (opcode.charAt(opcode.length() - 1) == 'C') {
 				int rD = codes[i].rD;
+				int rA = codes[i].rA;
 				int C = codes[i].C;
-				bw.write(String.format("%s %d %d %d\n", opcode, rD, 0, C));
+				bw.write(String.format("%s %d %d %d\n", opcode, rD, rA, C));
 			} else {
 				int rD = codes[i].rD;
 				int rA = codes[i].rA;
@@ -127,22 +129,29 @@ public class DataGenerator {
 		return Integer.parseInt(Integer.toBinaryString(value));
 	}
 
+	private static boolean containsOpcode(String opcode) {
+		switch (opcode) {
+		case "MOV":
+		case "MOVC":
+		case "NOT":
+			return true;
+		default:
+			return false;
+		}
+	}
+
 	private static class Code {
 		public String opcode;
 		public int rD, rA, rB, C;
 
-		public Code(String opcode, int rD, int rA, int rB) {
+		public Code(String opcode, int rD, int rA, int rB, boolean c) {
 			this.opcode = opcode;
 			this.rD = rD;
 			this.rA = rA;
-			this.rB = rB;
-		}
-
-		public Code(String opcode, int rD, int C) {
-			this.opcode = opcode;
-			this.rD = rD;
-			this.rA = 0;
-			this.C = C;
+			if (c)
+				this.C = rB;
+			else
+				this.rB = rB;
 		}
 	}
 }
