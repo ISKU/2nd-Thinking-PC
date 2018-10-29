@@ -7,6 +7,7 @@ CPU
 <p>여러 가지 프로그래밍 언어 중에서 어셈블리어는 사람이 이해하기 쉬우면서 기계어와 가장 유사한 언어이다. 어셈블리어 코드는 어셈블러를 통해 기계어 코드로 번역된다. 그리고 어셈블리어는 기계어와 일대일로 대응하는 특징이 있다. 예를 들면, 두 수의 합을 구하는 연산의 어셈블리어 코드가 <code>ADD</code>이고, 기계어 코드가 <code>00000</code>이면 어셈블러는 <code>ADD</code>를 읽어서 그대로 <code>00000</code>로 바꾸어주는 것이다.</p>
 
 <p>아래의 그림은 민호가 설계한 CPU가 처리할 수 있는 16-bit 단위 명령어들의 구조를 모아놓은 표이다.</p>
+
 ![Alt Text](https://github.com/ISKU/2nd-Thinking-PC/blob/master/D/img/IMG_01.png)
 
 <p>입력과 출력은 항상 명령어 단위이며, 어셈블리어 코드는 <em>&quot;opcode rD rA rB&quot;</em> 또는 <em>&quot;opcode rD rA #C&quot;</em>의 형태이다. 기본적으로 레지스터 <em>rA</em>와 <em>rB</em>에 있는 두 수 또는 레지스터 <em>rA</em>에 있는 수와 상수 <em>#C</em>를 <em>opcode</em>에 해당하는 연산을 수행하고, 그 결괏값을 레지스터 <em>rD</em>에 저장하는 명령어이다. <em>rA</em>는 <em>opcode</em>에 따라 사용하지 않을 수도 있다. 어셈블러는 <em>opcode, rD, rA, rB, #C</em>를 각 bit의 자리에 맞게 2진수 0과 1로 이루어진 16-bit 기계어 코드로 변역한다. bit마다 자리의 의미는 아래와 같다.</p>
