@@ -25,9 +25,9 @@ CPU
 ### 입력
 <p>첫 번째 줄에는 명령어의 개수를 의미하는 정수 <em>N</em> (1 &le; <em>N</em> &le; 500)이 주어진다.</p>
 
-<p>다음 <em>N</em>개의 각 줄에는 명령어가 어셈블리어 코드로 <em>&quot;opcode rD rA rB&quot;</em> 또는 <em>&quot;opcode rD rA #C&quot;</em>의 형태로 주어진다. 문자열 <em>opcode</em>는 항상 대문자이다. 정수 <em>rD, rA, rB</em> (0 &le; <em>rD, rA, rB</em> &le; 7)는 레지스터 번호를 의미한다. 만약 사용되지 않는 경우에 0이 주어진다. 정수 <em>#C</em> (0 &le; <em>#C</em> &le; 15)는 상수를 의미한다.</p>
+<p>다음 <em>N</em>개의 각 줄에는 명령어가 어셈블리어 코드로 <em>&quot;opcode rD rA rB&quot;</em> 또는 <em>&quot;opcode rD rA #C&quot;</em>의 형태로 주어진다. 문자열 <em>opcode</em>는 항상 대문자이다. 정수 <em>rD, rA, rB</em> (0 &le; <em>rD, rA, rB</em> &le; 7)는 레지스터 번호를 의미한다. 사용하는 레지스터 번호는 1부터 7까지이며, 사용하지 않을 경우에만 0이 주어진다. 정수 <em>#C</em> (0 &le; <em>#C</em> &le; 15)는 상수를 의미한다.</p>
 
-<p>기계어 코드로 번역될 때, 어긋나는 입력은 주어지지 않는다.</p>
+<p>기계어 코드로 번역될 때 어긋나는 입력은 주어지지 않는다.</p>
 
 ### 출력
 <p><em>N</em>개의 각 줄에 어셈블리어 코드를 기계어 코드로 번역하여 출력한다.</p>
@@ -75,4 +75,7 @@ RR 1 5 4
 ```
 
 ### 분류
-구현
+Implementation, Decimal to Binary Conversion
+
+### 만든이
+충남대학교 컴퓨터공학과 김민호 ([ISKU@GitHub](https://github.com/ISKU), [isku@BOJ](https://www.acmicpc.net/user/isku))
