@@ -15,9 +15,9 @@ int main() {
         }
     }
 
-    int r1, r2, c1, c2;
+    int r1, c1, r2, c2;
     while (Q-- > 0) {
-        cin >> r1 >> r2 >> c1 >> c2;
+        cin >> r1 >> c1 >> r2 >> c2;
 
         int sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1];
         int n = (r2 - r1 + 1) * (c2 - c1 + 1);

@@ -35,7 +35,7 @@ public class DataGenerator {
 			int c1 = random(MIN_C, C);
 			int r2 = random(r1, R);
 			int c2 = random(c1, C);
-			queries[i] = new Query(r1, r2, c1, c2);
+			queries[i] = new Query(r1, c1, r2, c2);
 		}
 
 		generateInput(nth, R, C, Q, image, queries);
@@ -56,10 +56,10 @@ public class DataGenerator {
 
 		for (int i = 0; i < Q; i++) {
 			int r1 = queries[i].r1;
-			int r2 = queries[i].r2;
-			int c1 = queries[i].c1;
+			int c1 = queries[i].r2;
+			int r2 = queries[i].c1;
 			int c2 = queries[i].c2;
-			bw.write(String.format("%d %d %d %d\n", r1, r2, c1, c2));
+			bw.write(String.format("%d %d %d %d\n", r1, c1, r2, c2));
 		}
 
 		bw.close();
@@ -84,8 +84,8 @@ public class DataGenerator {
 		int[] answer = new int[Q];
 		for (int i = 0; i < Q; i++) {
 			int r1 = queries[i].r1;
-			int r2 = queries[i].r2;
 			int c1 = queries[i].c1;
+			int r2 = queries[i].r2;
 			int c2 = queries[i].c2;
 
 			int sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1];
@@ -101,12 +101,12 @@ public class DataGenerator {
 	}
 
 	private static class Query {
-		public int r1, r2, c1, c2;
+		public int r1, c1, r2, c2;
 
-		public Query(int r1, int r2, int c1, int c2) {
+		public Query(int r1, int c1, int r2, int c2) {
 			this.r1 = r1;
-			this.r2 = r2;
 			this.c1 = c1;
+			this.r2 = r2;
 			this.c2 = c2;
 		}
 	}

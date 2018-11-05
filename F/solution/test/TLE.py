@@ -9,7 +9,7 @@ for r in range(1, R + 1):
         image[r][c] = cols[c - 1]
 
 for q in range(Q):
-    r1, r2, c1, c2 = map(int, sys.stdin.readline().split())
+    r1, c1, r2, c2 = map(int, sys.stdin.readline().split())
 
     n = (r2 - r1 + 1) * (c2 - c1 + 1)
     sum = 0

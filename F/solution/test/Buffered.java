@@ -20,8 +20,8 @@ public class Solution {
 		while (Q-- > 0) {
 			st = new StringTokenizer(br.readLine());
 			int r1 = Integer.parseInt(st.nextToken());
-			int r2 = Integer.parseInt(st.nextToken());
 			int c1 = Integer.parseInt(st.nextToken());
+			int r2 = Integer.parseInt(st.nextToken());
 			int c2 = Integer.parseInt(st.nextToken());
 
 			int sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1];

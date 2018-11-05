@@ -14,8 +14,8 @@ public class Solution {
 
 		while (Q-- > 0) {
 			int r1 = sc.nextInt();
-			int r2 = sc.nextInt();
 			int c1 = sc.nextInt();
+			int r2 = sc.nextInt();
 			int c2 = sc.nextInt();
 
 			int sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1];

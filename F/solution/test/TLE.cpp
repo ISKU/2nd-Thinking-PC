@@ -10,9 +10,9 @@ int main() {
         for (int c = 1; c <= C; c++)
             scanf("%d", &image[r][c]);
 
-    int r1, r2, c1, c2;
+    int r1, c1, r2, c2;
     while (Q-- > 0) {
-        scanf("%d %d %d %d\n", &r1, &r2, &c1, &c2);
+        scanf("%d %d %d %d\n", &r1, &c1, &r2, &c2);
 
         int n = (r2 - r1 + 1) * (c2 - c1 + 1);
         int sum = 0;
