@@ -71,4 +71,7 @@
 ```
 
 ### 분류
-수학
+Mathematics
+
+### 만든이
+충남대학교 컴퓨터공학과 정지수 ([someonewho@GitHub](https://github.com/someonewho), [bluedao@BOJ](https://www.acmicpc.net/user/bluedao))
