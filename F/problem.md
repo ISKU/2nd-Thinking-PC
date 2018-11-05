@@ -15,7 +15,7 @@
 
 <p>다음 <em>R</em>개의 줄에 걸쳐 <em>R&times;C</em> 크기의 사진 정보가 주어지며, 사진의 각 픽셀에는 밝기를 의미하는 정수 <em>K</em> (1 &le; <em>K</em> &le; 1,000)가 주어진다.</p>
 
-<p>다음 <em>Q</em>개의 각 줄에는 사진의 일부분을 나타내기 위한 두 꼭짓점을 의미하는 정수 <em>r<sub>1</sub></em>, <em>r<sub>2</sub></em> (1 &le; <em>r<sub>1</sub></em> &le; <em>r<sub>2</sub></em> &le; <em>R</em>), <em>c<sub>1</sub></em>, <em>c<sub>2</sub></em> (1 &le; <em>c<sub>1</sub></em> &le; <em>c<sub>2</sub></em> &le; <em>C</em>)가 주어진다.</p>
+<p>다음 <em>Q</em>개의 각 줄에는 사진의 일부분을 나타내기 위한 두 꼭짓점을 의미하는 정수 <em>r<sub>1</sub></em>, <em>c<sub>1</sub></em>, <em>r<sub>2</sub></em>, <em>c<sub>2</sub></em> (1 &le; <em>r<sub>1</sub></em> &le; <em>r<sub>2</sub></em> &le; <em>R</em>, 1 &le; <em>c<sub>1</sub></em> &le; <em>c<sub>2</sub></em> &le; <em>C</em>)가 주어진다.</p>
 
 ### 출력
 <p><em>Q</em>개의 각 줄에 주어진 사진에서 두 점 (<em>r<sub>1</sub>, c<sub>1</sub></em>)과 (<em>r<sub>2</sub>, c<sub>2</sub></em>)를 꼭짓점으로 하는 직사각형의 밝기 평균을 출력한다. 평균은 정수 나눗셈으로 몫만 취한다.</p>
@@ -28,7 +28,7 @@
 8 1 2 5 3 2
 1 5 3 4 2 5
 5 2 1 2 3 5
-2 4 2 5
+2 2 4 5
 ```
 
 ### 예제 출력 1
@@ -44,10 +44,10 @@
 80 63 71
 99 58 86
 2 2 2 3
-3 3 2 3
+3 2 3 3
 1 2 2 2
-1 4 2 3
-2 2 3 3
+1 2 4 3
+2 3 2 3
 ```
 
 ### 예제 출력 2
@@ -61,3 +61,6 @@
 
 ### 분류
 2D Prefix Sum, Range Sum Query 2D
+
+### 만든이
+충남대학교 컴퓨터공학과 이종화 ([willook@GitHub](https://github.com/willook), [willook@BOJ](https://www.acmicpc.net/user/willook))
