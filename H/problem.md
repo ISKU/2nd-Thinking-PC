@@ -36,3 +36,6 @@ Predictable Queue
 
 ### 분류
 Prefix Sum, Binary Search
+
+### 만든이
+충남대학교 컴퓨터공학과 김민호 ([ISKU@GitHub](https://github.com/ISKU), [isku@BOJ](https://www.acmicpc.net/user/isku))
