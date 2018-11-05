@@ -47,4 +47,7 @@
 ```
 
 ### 분류
-구현, long int
+Implementation, Long integer
+
+### 만든이
+충남대학교 컴퓨터공학과 김혁진 ([HyeockJinKim@GitHub](https://github.com/HyeockJinKim), [gurwls9628@BOJ](https://www.acmicpc.net/user/gurwls9628))
