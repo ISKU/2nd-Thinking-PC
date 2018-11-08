@@ -4,7 +4,7 @@
 ### 문제
 <p>호근이는 겁이 많아 어두운 것을 싫어한다. 호근이에게 어떤 사진을 보여주려는데 사진의 밝기가 평균 이상이 되지 않으면 일절 보려 하지 않는다. 호근이가 이 사진에서 일부분이라도 볼 수 있는 부분을 찾아주자.</p>
 
-![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/F/img/IMG_01.png)
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_01.png)
 
 <p>위 그림은 호근이에게 보여줄 5&times;6 크기의 사진이며, 각 픽셀은 밝기를 나타낸다. 호근이가 사진의 일부분이라도 볼 수 있는지 알아보기 위해서는 두 점 (<em>r<sub>1</sub>, c<sub>1</sub></em>)과 (<em>r<sub>2</sub>, c<sub>2</sub></em>)를 꼭짓점으로 하는 직사각형의 밝기 평균을 구해야 한다. 예를 들어, 위 그림에서는 (2, 2)와 (4, 5)를 꼭짓점으로 하는 직사각형을 말한다.</p>
 
