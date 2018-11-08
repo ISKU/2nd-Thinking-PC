@@ -1,16 +1,48 @@
-R, C, Q = map(int, input().split())
+T = input()
+letter = [ 0 for i in range(26) ]
+for i in range(len(T)):
+   letter[ord(T[i]) - ord('A')] += 1
 
-psum = [[0 for cols in range(C + 1)] for rows in range(R + 1)]
+N = int(input())
+books = []
+for i in range(N):
+    C, W = input().split()
 
-for r in range(1, R + 1):
-    cols = list(map(int, input().split()))
-    for c in range(1, C + 1):
-        psum[r][c] = cols[c - 1] + psum[r - 1][c] + psum[r][c - 1] - psum[r - 1][c - 1]
+    temp = [ 0 for i in range(26) ]
+    for j in range(len(W)):
+        temp[ord(W[j]) - ord('A')] += 1
 
-for q in range(Q):
-    r1, c1, r2, c2 = map(int, input().split())
-    
-    sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1]
-    n = (r2 - r1 + 1) * (c2 - c1 + 1)
+    books.append((int(C), W, temp))
 
-    print(sum // n)
+answer = 123456789
+size = 1 << N
+for n in range(size):
+    cost = 0
+    count = [ 0 for i in range(26) ]
+
+    idx = 0
+    d = 1
+    while True:
+        if d > n:
+            break
+
+        if (n & d) == d:
+            cost += books[idx][0]
+            for i in range(26):
+                count[i] += books[idx][2][i]
+
+        idx += 1
+        d <<= 1
+
+    check = True
+    for i in range(26):
+        if count[i] < letter[i]:
+            check = False
+            break
+    if check:
+        answer = min([answer, cost])
+
+if answer == 123456789:
+    print(-1)
+else:
+    print(answer)

@@ -1,61 +1,67 @@
 import java.util.*;
 
 public class Solution {
+
+	private static final int[] dy = new int[] { -3, -3, -2, 2, 3, 3, 2, -2 };
+	private static final int[] dx = new int[] { -2, 2, 3, 3, 2, -2, -3, -3 };
+	private static final int[] cy = new int[] { -2, -2, -1, 1, 2, 2, 1, -1 };
+	private static final int[] cx = new int[] { -1, 1, 2, 2, 1, -1, -2, -2 };
+	private static final int[] ay = new int[] { -1, -1, 0, 0, 1, 1, 0, 0 };
+	private static final int[] ax = new int[] { 0, 0, 1, 1, 0, 0, -1, -1 };
+	private static final int Y = 10;
+	private static final int X = 9;
+
+	private static Piece sang, king;
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-
-		int[] letter = new int[26];
-		String T = sc.next();
-		for (int i = 0; i < T.length(); i++)
-			letter[T.charAt(i) - 'A']++;
-
-		int N = sc.nextInt();
-		Book[] books = new Book[N];
-		for (int i = 0; i < N; i++)
-			books[i] = new Book(sc.nextInt(), sc.next());
-
-		int answer = Integer.MAX_VALUE;
-		int size = 1 << N;
-		for (int n = 1; n < size; n++) {
-			int[] count = new int[26];
-			int cost = 0;
-
-			for (int d = 1, idx = 0; d <= n; d <<= 1, idx++) {
-				if ((n & d) != d)
-					continue;
-
-				cost += books[idx].C;
-				for (int i = 0; i < 26; i++)
-					count[i] += books[idx].letter[i];
-			}
-
-			boolean check = true;
-			for (int i = 0; i < 26; i++) {
-				if (count[i] < letter[i]) {
-					check = false;
-					break;
-				}
-			}
-
-			if (check)
-				answer = Math.min(answer, cost);
-		}
-
-		System.out.print((answer == Integer.MAX_VALUE) ? -1 : answer);
+		sang = new Piece(sc.nextInt(), sc.nextInt(), 0);
+		king = new Piece(sc.nextInt(), sc.nextInt(), 0);
+		System.out.print(bfs());
 	}
 
-	private static class Book {
-		public int C;
-		public String W;
-		public int[] letter;
+	private static int bfs() {
+		Queue<Piece> q = new LinkedList<Piece>();
+		boolean[][] visited = new boolean[Y][X];
+		q.add(sang);
+		visited[sang.y][sang.x] = true;
 
-		public Book(int C, String W) {
-			this.C = C;
-			this.W = W;
+		while (!q.isEmpty()) {
+			Piece u = q.poll();
+			if (u.y == king.y && u.x == king.x)
+				return u.count;
 
-			this.letter = new int[26];
-			for (int i = 0; i < W.length(); i++)
-				this.letter[W.charAt(i) - 'A']++;
+			for (int i = 0; i < 8; i++) {
+				int y = u.y + ay[i];
+				int x = u.x + ax[i];
+				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
+					continue;
+
+				y = u.y + cy[i];
+				x = u.x + cx[i];
+				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
+					continue;
+
+				y = u.y + dy[i];
+				x = u.x + dx[i];
+				if (y < 0 || y >= Y || x < 0 || x >= X || visited[y][x])
+					continue;
+
+				q.add(new Piece(y, x, u.count + 1));
+				visited[y][x] = true;
+			}
+		}
+
+		return -1;
+	}
+
+	private static class Piece {
+		public int y, x, count;
+
+		public Piece(int y, int x, int count) {
+			this.y = y;
+			this.x = x;
+			this.count = count;
 		}
 	}
 }

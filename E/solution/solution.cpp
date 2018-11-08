@@ -1,68 +1,26 @@
 #include <stdio.h>
-#include <queue>
-using namespace std;
 
-int dy[] = { -3, -3, -2, 2, 3, 3, 2, -2 };
-int dx[] = { -2, 2, 3, 3, 2, -2, -3, -3 };
-int ny[] = { -2, -2, -1, 1, 2, 2, 1, -1 };
-int nx[] = { -1, 1, 2, 2, 1, -1, -2, -2 };
-int ay[] = { -1, -1, 0, 0, 1, 1, 0, 0 };
-int ax[] = { 0, 0, 1, 1, 0, 0, -1, -1 };
+int psum[1001][1001];
 
-typedef struct Piece {
-    int y, x, count;
-} Piece;
+int main() {
+    int R, C, Q;
+    scanf("%d %d %d", &R, &C, &Q);
 
-Piece sang, king;
-
-int bfs() {
-    queue<Piece> q;
-    bool visited[10][9];
-    for (int y = 0; y < 10; y++)
-        for (int x = 0; x < 9; x++)
-            visited[y][x] = false;
-
-    q.push(sang);
-    visited[sang.y][sang.x] = true;
-
-    while (!q.empty()) {
-        Piece u = q.front();
-        q.pop();
-        if (u.y == king.y && u.x == king.x)
-            return u.count;
-
-        for (int i = 0; i < 8; i++) {
-            int y = u.y + ay[i];
-            int x = u.x + ax[i];
-            if (y < 0 || y >= 10 || x < 0 || x >= 9 || (y == king.y && x == king.x))
-                continue;
-
-            y = u.y + ny[i];
-            x = u.x + nx[i];
-            if (y < 0 || y >= 10 || x < 0 || x >= 9 || (y == king.y && x == king.x))
-                continue;
-
-            y = u.y + dy[i];
-            x = u.x + dx[i];
-            if (y < 0 || y >= 10 || x < 0 || x >= 9 || visited[y][x])
-                continue;
-
-            Piece v = { y, x, u.count + 1 };
-            q.push(v);
-            visited[y][x] = true;
+    int K;
+    for (int r = 1; r <= R; r++) {
+        for (int c = 1; c <= C; c++) {
+            scanf("%d", &K);
+            psum[r][c] = K + psum[r - 1][c] + psum[r][c - 1] - psum[r - 1][c - 1];
         }
     }
 
-    return -1;
-}
+    int r1, c1, r2, c2;
+    while (Q-- > 0) {
+        scanf("%d %d %d %d\n", &r1, &c1, &r2, &c2);
 
-int main() {
-    int R1, C1, R2, C2;
-    scanf("%d %d %d %d", &R1, &C1, &R2, &C2);
+        int sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1];
+        int n = (r2 - r1 + 1) * (c2 - c1 + 1);
 
-    sang = { R1, C1, 0 };
-    king = { R2, C2, 0 };
-
-    printf("%d", bfs());
-    return 0;
+        printf("%d\n", sum / n);
+    }
 }

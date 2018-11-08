@@ -1,18 +1,26 @@
+import java.util.*;
 import java.io.*;
 
 public class DataGenerator {
 
-	private static final int MIN_T = 1;
-	private static final int MAX_T = 10;
-	private static final int MIN_N = 1;
-	private static final int MAX_N = 16;
-	private static final int MIN_C = 10_000;
-	private static final int MAX_C = 100_000;
-	private static final int MIN_W = 1;
-	private static final int MAX_W = 50;
+	private static final int MIN_PIECE_Y = 0;
+	private static final int MAX_PIECE_Y = 9;
+	private static final int MIN_PIECE_X = 0;
+	private static final int MAX_PIECE_X = 8;
+	private static final int[] RANGE_KING_Y = new int[] { 0, 1, 2, 7, 8, 9 };
+	private static final int[] RANGE_KING_X = new int[] { 3, 4, 5 };
 
 	private static final int START = 1;
-	private static final int END = 100;
+	private static final int END = 50;
+
+	private static final int[] dy = new int[] { -3, -3, -2, 2, 3, 3, 2, -2 };
+	private static final int[] dx = new int[] { -2, 2, 3, 3, 2, -2, -3, -3 };
+	private static final int[] cy = new int[] { -2, -2, -1, 1, 2, 2, 1, -1 };
+	private static final int[] cx = new int[] { -1, 1, 2, 2, 1, -1, -2, -2 };
+	private static final int[] ay = new int[] { -1, -1, 0, 0, 1, 1, 0, 0 };
+	private static final int[] ax = new int[] { 0, 0, 1, 1, 0, 0, -1, -1 };
+	private static final int Y = 10;
+	private static final int X = 9;
 
 	public static void main(String[] args) throws Exception {
 		for (int i = START; i <= END; i++)
@@ -20,97 +28,80 @@ public class DataGenerator {
 	}
 
 	private static void generate(int nth) throws Exception {
-		int sizeT = random(MIN_T, MAX_T);
-		String T = "";
-		for (int i = 0; i < sizeT; i++)
-			T += (char) random('A', 'Z');
-
-		int N = random(MIN_N, MAX_N);
-		Book[] books = new Book[N];
-		for (int i = 0; i < N; i++) {
-			int C = random(MIN_C, MAX_C);
-			int sizeW = random(MIN_W, MAX_W);
-			String W = "";
-			for (int j = 0; j < sizeW; j++)
-				W += (char) random('A', 'Z');
-
-			books[i] = new Book(C, W);
+		int sangY = random(MIN_PIECE_Y, MAX_PIECE_Y);
+		int sangX = random(MIN_PIECE_X, MAX_PIECE_X);
+		int kingY = RANGE_KING_Y[random(0, RANGE_KING_Y.length - 1)];
+		int kingX = RANGE_KING_X[random(0, RANGE_KING_X.length - 1)];
+		if (sangY == kingY && sangX == kingX) {
+			generate(nth);
+			return;
 		}
 
-		generateInput(nth, T, N, books);
-		generateOutput(nth, T, N, books);
+		Piece sang = new Piece(sangY, sangX, 0);
+		Piece king = new Piece(kingY, kingX, 0);
+		generateInput(nth, sang, king);
+		generateOutput(nth, sang, king);
 	}
 
-	private static void generateInput(int nth, String T, int N, Book[] books) throws Exception {
+	private static void generateInput(int nth, Piece sang, Piece king) throws Exception {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nth + ".in"));
-
-		bw.write(String.format("%s\n", T));
-		bw.write(String.format("%d\n", N));
-		for (int i = 0; i < books.length; i++)
-			bw.write(String.format("%d %s\n", books[i].C, books[i].W));
-
+		bw.write(String.format("%d %d\n", sang.y, sang.x));
+		bw.write(String.format("%d %d\n", king.y, king.x));
 		bw.close();
 	}
 
-	private static void generateOutput(int nth, String T, int N, Book[] books) throws Exception {
+	private static void generateOutput(int nth, Piece sang, Piece king) throws Exception {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nth + ".out"));
-
-		bw.write(String.format("%d\n", solve(T, N, books)));
-
+		bw.write(String.format("%d\n", solve(sang, king)));
 		bw.close();
 	}
 
-	private static int solve(String T, int N, Book[] books) {
-		int[] letter = new int[26];
-		for (int i = 0; i < T.length(); i++)
-			letter[T.charAt(i) - 'A']++;
+	private static int solve(Piece sang, Piece king) {
+		Queue<Piece> q = new LinkedList<Piece>();
+		boolean[][] visited = new boolean[Y][X];
+		q.add(sang);
+		visited[sang.y][sang.x] = true;
 
-		int answer = Integer.MAX_VALUE;
-		int size = 1 << N;
-		for (int n = 1; n < size; n++) {
-			int[] count = new int[26];
-			int cost = 0;
+		while (!q.isEmpty()) {
+			Piece u = q.poll();
+			if (u.y == king.y && u.x == king.x)
+				return u.count;
 
-			for (int d = 1, idx = 0; d <= n; d <<= 1, idx++) {
-				if ((n & d) != d)
+			for (int i = 0; i < 8; i++) {
+				int y = u.y + ay[i];
+				int x = u.x + ax[i];
+				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
 					continue;
 
-				cost += books[idx].C;
-				for (int i = 0; i < 26; i++)
-					count[i] += books[idx].letter[i];
-			}
+				y = u.y + cy[i];
+				x = u.x + cx[i];
+				if (y < 0 || y >= Y || x < 0 || x >= X || (y == king.y && x == king.x))
+					continue;
 
-			boolean check = true;
-			for (int i = 0; i < 26; i++) {
-				if (count[i] < letter[i]) {
-					check = false;
-					break;
-				}
-			}
+				y = u.y + dy[i];
+				x = u.x + dx[i];
+				if (y < 0 || y >= Y || x < 0 || x >= X || visited[y][x])
+					continue;
 
-			if (check)
-				answer = Math.min(answer, cost);
+				q.add(new Piece(y, x, u.count + 1));
+				visited[y][x] = true;
+			}
 		}
 
-		return (answer == Integer.MAX_VALUE) ? -1 : answer;
+		return -1;
 	}
 
 	private static int random(int L, int R) {
 		return (int) (Math.random() * (R - L + 1)) + L;
 	}
 
-	private static class Book {
-		public int C;
-		public String W;
-		public int[] letter;
+	private static class Piece {
+		public int y, x, count;
 
-		public Book(int C, String W) {
-			this.C = C;
-			this.W = W;
-
-			this.letter = new int[26];
-			for (int i = 0; i < W.length(); i++)
-				this.letter[W.charAt(i) - 'A']++;
+		public Piece(int y, int x, int count) {
+			this.y = y;
+			this.x = x;
+			this.count = count;
 		}
 	}
 }

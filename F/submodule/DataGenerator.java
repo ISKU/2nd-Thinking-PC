@@ -2,17 +2,17 @@ import java.io.*;
 
 public class DataGenerator {
 
-	private static final int MIN_R = 1;
-	private static final int MAX_R = 1_000;
-	private static final int MIN_C = 1;
-	private static final int MAX_C = 1_000;
-	private static final int MIN_Q = 1;
-	private static final int MAX_Q = 10_000;
-	private static final int MIN_K = 1;
-	private static final int MAX_K = 1_000;
+	private static final int MIN_T = 1;
+	private static final int MAX_T = 10;
+	private static final int MIN_N = 1;
+	private static final int MAX_N = 16;
+	private static final int MIN_C = 10_000;
+	private static final int MAX_C = 100_000;
+	private static final int MIN_W = 1;
+	private static final int MAX_W = 50;
 
 	private static final int START = 1;
-	private static final int END = 25;
+	private static final int END = 100;
 
 	public static void main(String[] args) throws Exception {
 		for (int i = START; i <= END; i++)
@@ -20,94 +20,97 @@ public class DataGenerator {
 	}
 
 	private static void generate(int nth) throws Exception {
-		int R = random(MIN_R, MAX_R);
-		int C = random(MIN_C, MAX_C);
-		int Q = random(MIN_Q, MAX_Q);
+		int sizeT = random(MIN_T, MAX_T);
+		String T = "";
+		for (int i = 0; i < sizeT; i++)
+			T += (char) random('A', 'Z');
 
-		int[][] image = new int[R + 1][C + 1];
-		for (int r = 1; r <= R; r++)
-			for (int c = 1; c <= C; c++)
-				image[r][c] = random(MIN_K, MAX_K);
+		int N = random(MIN_N, MAX_N);
+		Book[] books = new Book[N];
+		for (int i = 0; i < N; i++) {
+			int C = random(MIN_C, MAX_C);
+			int sizeW = random(MIN_W, MAX_W);
+			String W = "";
+			for (int j = 0; j < sizeW; j++)
+				W += (char) random('A', 'Z');
 
-		Query[] queries = new Query[Q];
-		for (int i = 0; i < Q; i++) {
-			int r1 = random(MIN_R, R);
-			int c1 = random(MIN_C, C);
-			int r2 = random(r1, R);
-			int c2 = random(c1, C);
-			queries[i] = new Query(r1, c1, r2, c2);
+			books[i] = new Book(C, W);
 		}
 
-		generateInput(nth, R, C, Q, image, queries);
-		generateOutput(nth, R, C, Q, image, queries);
+		generateInput(nth, T, N, books);
+		generateOutput(nth, T, N, books);
 	}
 
-	private static void generateInput(int nth, int R, int C, int Q, int[][] image, Query[] queries) throws Exception {
+	private static void generateInput(int nth, String T, int N, Book[] books) throws Exception {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nth + ".in"));
 
-		bw.write(String.format("%d %d %d\n", R, C, Q));
-
-		for (int r = 1; r <= R; r++) {
-			bw.write(String.format("%d", image[r][1]));
-			for (int c = 2; c <= C; c++)
-				bw.write(String.format(" %d", image[r][c]));
-			bw.write("\n");
-		}
-
-		for (int i = 0; i < Q; i++) {
-			int r1 = queries[i].r1;
-			int c1 = queries[i].r2;
-			int r2 = queries[i].c1;
-			int c2 = queries[i].c2;
-			bw.write(String.format("%d %d %d %d\n", r1, c1, r2, c2));
-		}
+		bw.write(String.format("%s\n", T));
+		bw.write(String.format("%d\n", N));
+		for (int i = 0; i < books.length; i++)
+			bw.write(String.format("%d %s\n", books[i].C, books[i].W));
 
 		bw.close();
 	}
 
-	private static void generateOutput(int nth, int R, int C, int Q, int[][] image, Query[] queries) throws Exception {
+	private static void generateOutput(int nth, String T, int N, Book[] books) throws Exception {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nth + ".out"));
 
-		int[] answer = solve(R, C, Q, image, queries);
-		for (int i = 0; i < Q; i++)
-			bw.write(String.format("%d\n", answer[i]));
+		bw.write(String.format("%d\n", solve(T, N, books)));
 
 		bw.close();
 	}
 
-	private static int[] solve(int R, int C, int Q, int[][] image, Query[] queries) {
-		int[][] psum = new int[R + 1][C + 1];
-		for (int r = 1; r <= R; r++)
-			for (int c = 1; c <= C; c++)
-				psum[r][c] = image[r][c] + psum[r - 1][c] + psum[r][c - 1] - psum[r - 1][c - 1];
+	private static int solve(String T, int N, Book[] books) {
+		int[] letter = new int[26];
+		for (int i = 0; i < T.length(); i++)
+			letter[T.charAt(i) - 'A']++;
 
-		int[] answer = new int[Q];
-		for (int i = 0; i < Q; i++) {
-			int r1 = queries[i].r1;
-			int c1 = queries[i].c1;
-			int r2 = queries[i].r2;
-			int c2 = queries[i].c2;
+		int answer = Integer.MAX_VALUE;
+		int size = 1 << N;
+		for (int n = 1; n < size; n++) {
+			int[] count = new int[26];
+			int cost = 0;
 
-			int sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1];
-			int n = (r2 - r1 + 1) * (c2 - c1 + 1);
-			answer[i] = sum / n;
+			for (int d = 1, idx = 0; d <= n; d <<= 1, idx++) {
+				if ((n & d) != d)
+					continue;
+
+				cost += books[idx].C;
+				for (int i = 0; i < 26; i++)
+					count[i] += books[idx].letter[i];
+			}
+
+			boolean check = true;
+			for (int i = 0; i < 26; i++) {
+				if (count[i] < letter[i]) {
+					check = false;
+					break;
+				}
+			}
+
+			if (check)
+				answer = Math.min(answer, cost);
 		}
 
-		return answer;
+		return (answer == Integer.MAX_VALUE) ? -1 : answer;
 	}
 
 	private static int random(int L, int R) {
 		return (int) (Math.random() * (R - L + 1)) + L;
 	}
 
-	private static class Query {
-		public int r1, c1, r2, c2;
+	private static class Book {
+		public int C;
+		public String W;
+		public int[] letter;
 
-		public Query(int r1, int c1, int r2, int c2) {
-			this.r1 = r1;
-			this.c1 = c1;
-			this.r2 = r2;
-			this.c2 = c2;
+		public Book(int C, String W) {
+			this.C = C;
+			this.W = W;
+
+			this.letter = new int[26];
+			for (int i = 0; i < W.length(); i++)
+				this.letter[W.charAt(i) - 'A']++;
 		}
 	}
 }

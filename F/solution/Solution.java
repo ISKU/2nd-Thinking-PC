@@ -3,24 +3,59 @@ import java.util.*;
 public class Solution {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int R = sc.nextInt();
-		int C = sc.nextInt();
-		int Q = sc.nextInt();
 
-		int[][] psum = new int[R + 1][C + 1];
-		for (int r = 1; r <= R; r++)
-			for (int c = 1; c <= C; c++)
-				psum[r][c] = sc.nextInt() + psum[r - 1][c] + psum[r][c - 1] - psum[r - 1][c - 1];
+		int[] letter = new int[26];
+		String T = sc.next();
+		for (int i = 0; i < T.length(); i++)
+			letter[T.charAt(i) - 'A']++;
 
-		while (Q-- > 0) {
-			int r1 = sc.nextInt();
-			int c1 = sc.nextInt();
-			int r2 = sc.nextInt();
-			int c2 = sc.nextInt();
+		int N = sc.nextInt();
+		Book[] books = new Book[N];
+		for (int i = 0; i < N; i++)
+			books[i] = new Book(sc.nextInt(), sc.next());
 
-			int sum = psum[r2][c2] - psum[r1 - 1][c2] - psum[r2][c1 - 1] + psum[r1 - 1][c1 - 1];
-			int n = (r2 - r1 + 1) * (c2 - c1 + 1);
-			System.out.println(sum / n);
+		int answer = Integer.MAX_VALUE;
+		int size = 1 << N;
+		for (int n = 1; n < size; n++) {
+			int[] count = new int[26];
+			int cost = 0;
+
+			for (int d = 1, idx = 0; d <= n; d <<= 1, idx++) {
+				if ((n & d) != d)
+					continue;
+
+				cost += books[idx].C;
+				for (int i = 0; i < 26; i++)
+					count[i] += books[idx].letter[i];
+			}
+
+			boolean check = true;
+			for (int i = 0; i < 26; i++) {
+				if (count[i] < letter[i]) {
+					check = false;
+					break;
+				}
+			}
+
+			if (check)
+				answer = Math.min(answer, cost);
+		}
+
+		System.out.print((answer == Integer.MAX_VALUE) ? -1 : answer);
+	}
+
+	private static class Book {
+		public int C;
+		public String W;
+		public int[] letter;
+
+		public Book(int C, String W) {
+			this.C = C;
+			this.W = W;
+
+			this.letter = new int[26];
+			for (int i = 0; i < W.length(); i++)
+				this.letter[W.charAt(i) - 'A']++;
 		}
 	}
 }

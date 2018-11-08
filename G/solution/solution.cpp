@@ -1,73 +1,68 @@
-#include <iostream>
-#include <algorithm>
-#include <string.h>
+#include <stdio.h>
+#include <queue>
 using namespace std;
 
-const int INF = 123456789;
+int dy[] = { -3, -3, -2, 2, 3, 3, 2, -2 };
+int dx[] = { -2, 2, 3, 3, 2, -2, -3, -3 };
+int ny[] = { -2, -2, -1, 1, 2, 2, 1, -1 };
+int nx[] = { -1, 1, 2, 2, 1, -1, -2, -2 };
+int ay[] = { -1, -1, 0, 0, 1, 1, 0, 0 };
+int ax[] = { 0, 0, 1, 1, 0, 0, -1, -1 };
 
-typedef struct Book {
-    int C;
-    string W;
-    int letter[26];
-} Book;
+typedef struct Piece {
+    int y, x, count;
+} Piece;
 
-int letter[26];
-Book books[16];
+Piece sang, king;
 
-int main() {
-    string T;
-    cin >> T;
-    for (int i = 0; i < T.size(); i++)
-        letter[T[i] - 'A']++;
+int bfs() {
+    queue<Piece> q;
+    bool visited[10][9];
+    for (int y = 0; y < 10; y++)
+        for (int x = 0; x < 9; x++)
+            visited[y][x] = false;
 
-    int N;
-    cin >> N;
-    for (int i = 0; i < N; i++) {
-        int C;
-        string W;
-        cin >> C >> W;
+    q.push(sang);
+    visited[sang.y][sang.x] = true;
 
-        Book book;
-        book.C = C;
-        book.W = W;
-        memset(book.letter, 0, sizeof(book.letter));
-        for (int j = 0; j < W.size(); j++)
-            book.letter[W[j] - 'A']++;
+    while (!q.empty()) {
+        Piece u = q.front();
+        q.pop();
+        if (u.y == king.y && u.x == king.x)
+            return u.count;
 
-        books[i] = book;
-    }
-
-    int answer = INF;
-    int size = 1 << N;
-    for (int n = 1; n < size; n++) {
-        int cost = 0;
-        int count[26];
-        memset(count, 0, sizeof(count));
-
-        for (int d = 1, idx = 0; d <= n; d <<= 1, idx++) {
-            if ((n & d) != d)
+        for (int i = 0; i < 8; i++) {
+            int y = u.y + ay[i];
+            int x = u.x + ax[i];
+            if (y < 0 || y >= 10 || x < 0 || x >= 9 || (y == king.y && x == king.x))
                 continue;
 
-            cost += books[idx].C;
-            for (int i = 0; i < 26; i++)
-                count[i] += books[idx].letter[i];
-        }
+            y = u.y + ny[i];
+            x = u.x + nx[i];
+            if (y < 0 || y >= 10 || x < 0 || x >= 9 || (y == king.y && x == king.x))
+                continue;
 
-        bool check = true;
-        for (int i = 0; i < 26; i++) {
-            if (count[i] < letter[i]) {
-                check = false;
-                break;
-            }
+            y = u.y + dy[i];
+            x = u.x + dx[i];
+            if (y < 0 || y >= 10 || x < 0 || x >= 9 || visited[y][x])
+                continue;
+
+            Piece v = { y, x, u.count + 1 };
+            q.push(v);
+            visited[y][x] = true;
         }
-        if (check)
-            answer = min(answer, cost);
     }
 
-    if (answer == INF)
-        cout << "-1";
-    else
-        cout << answer;
+    return -1;
+}
 
+int main() {
+    int R1, C1, R2, C2;
+    scanf("%d %d %d %d", &R1, &C1, &R2, &C2);
+
+    sang = { R1, C1, 0 };
+    king = { R2, C2, 0 };
+
+    printf("%d", bfs());
     return 0;
 }

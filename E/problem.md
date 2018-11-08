@@ -1,70 +1,66 @@
 ### 제목
-장군
+어두운 건 무서워
 
 ### 문제
-<p>오랜만에 휴가를 나온 호근이는 문득 동아리방에 있는 장기가 하고 싶어졌다. 하지만 장기를 오랫동안 하지 않은 탓인지 예전에는 잘 쓰던 상을 제대로 쓰는 것이 너무 힘들었다. 호근이를 위해 상을 어떻게 써야 할지 도와주자.</p>
+<p>호근이는 겁이 많아 어두운 것을 싫어한다. 호근이에게 어떤 사진을 보여주려는데 사진의 밝기가 평균 이상이 되지 않으면 일절 보려 하지 않는다. 호근이가 이 사진에서 일부분이라도 볼 수 있는 부분을 찾아주자.</p>
 
-![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_01.png)
+![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/F/img/IMG_01.png)
 
-<p>위 그림은 10&times;9 크기의 장기판을 나타내며, 상은 (5, 4)에, 왕은 (1, 4)에 자리 잡고 있는 기물이다. (0, 3)과 (2, 5)를 꼭짓점으로 하는 사각형과, (7, 3)과 (9, 5)를 꼭짓점으로 하는 사각형은 왕이 위치할 수 있는 궁성이라고 한다. 상은 위 그림과 같이 8가지 방법으로 움직일 수 있는데, 상, 하, 좌, 우로 한 칸을 이동한 후에 같은 방향 쪽 대각선으로 두 칸 이동한다.</p>
+<p>위 그림은 호근이에게 보여줄 5&times;6 크기의 사진이며, 각 픽셀은 밝기를 나타낸다. 호근이가 사진의 일부분이라도 볼 수 있는지 알아보기 위해서는 두 점 (<em>r<sub>1</sub>, c<sub>1</sub></em>)과 (<em>r<sub>2</sub>, c<sub>2</sub></em>)를 꼭짓점으로 하는 직사각형의 밝기 평균을 구해야 한다. 예를 들어, 위 그림에서는 (2, 2)와 (4, 5)를 꼭짓점으로 하는 직사각형을 말한다.</p>
 
-![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_02.png)
-
-<p>만약 상이 이동하는 경로에 위 그림과 같이 다른 기물이 있다면 상은 그쪽으로 이동할 수 없다. 또한, 상이 장기판을 벗어날 수도 없다.</p>
-
-<p>10&times;9 크기의 장기판 위에 상과 왕의 처음 위치가 주어졌을 때, 상이 왕에게 도달할 수 있는 최소 이동 횟수를 구하여라.</p>
+<p>호근이에게 보여줄 <em>R&times;C</em> 크기의 사진이 주어질 때, 사진의 일부분에 해당하는 밝기 평균을 구하여라.</p>
 
 ### 입력
-<p>첫 번째 줄에는 상의 위치를 의미하는 정수 <em>R<sub>1</sub></em>, <em>C<sub>1</sub></em>이 주어진다.</p>
+<p>첫 번째 줄에는 사진의 크기를 의미하는 정수 <em>R, C</em> (1 &le; <em>R, C</em> &le; 1,000)와 사진 일부분의 밝기 평균을 알아볼 개수를 의미하는 정수 <em>Q</em> (1 &le; <em>Q</em> &le; 10,000)가 주어진다.</p>
 
-<p>두 번째 줄에는 왕의 위치를 의미하는 정수 <em>R<sub>2</sub></em>, <em>C<sub>2</sub></em>가 주어진다. 장기판에서 <em>R<sub>i</sub></em> (0 &le; <em>R<sub>i</sub></em> &le; 9)는 행을, <em>C<sub>i</sub></em> (0 &le; <em>C<sub>i</sub></em> &le; 8)는 열을 의미한다.</p>
+<p>다음 <em>R</em>개의 줄에 걸쳐 <em>R&times;C</em> 크기의 사진 정보가 주어지며, 사진의 각 픽셀에는 밝기를 의미하는 정수 <em>K</em> (1 &le; <em>K</em> &le; 1,000)가 주어진다.</p>
 
-<p>왕은 항상 궁성에 자리 잡고 있으며, 상과 왕의 위치는 겹치지 않는다.</p>
+<p>다음 <em>Q</em>개의 각 줄에는 사진의 일부분을 나타내기 위한 두 꼭짓점을 의미하는 정수 <em>r<sub>1</sub></em>, <em>c<sub>1</sub></em>, <em>r<sub>2</sub></em>, <em>c<sub>2</sub></em> (1 &le; <em>r<sub>1</sub></em> &le; <em>r<sub>2</sub></em> &le; <em>R</em>, 1 &le; <em>c<sub>1</sub></em> &le; <em>c<sub>2</sub></em> &le; <em>C</em>)가 주어진다.</p>
 
 ### 출력
-<p>상이 왕에게 도달할 수 있는 최소 이동 횟수를 출력한다. 만약 도달할 수 없다면 <code>-1</code>을 출력한다.</p>
+<p><em>Q</em>개의 각 줄에 주어진 사진에서 두 점 (<em>r<sub>1</sub>, c<sub>1</sub></em>)과 (<em>r<sub>2</sub>, c<sub>2</sub></em>)를 꼭짓점으로 하는 직사각형의 밝기 평균을 출력한다. 평균은 정수 나눗셈으로 몫만 취한다.</p>
 
 ### 예제 입력 1
 ```
-4 2
-2 5
+5 6 1
+4 1 3 4 9 5
+1 2 8 7 5 5
+8 1 2 5 3 2
+1 5 3 4 2 5
+5 2 1 2 3 5
+2 2 4 5
 ```
 
 ### 예제 출력 1
 ```
-1
+3
 ```
-
-![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_03.png)
 
 ### 예제 입력 2
 ```
-0 1
-8 4
+4 3 5
+25 93 64
+10 29 85
+80 63 71
+99 58 86
+2 2 2 3
+3 2 3 3
+1 2 2 2
+1 2 4 3
+2 3 2 3
 ```
 
 ### 예제 출력 2
 ```
-3
+57
+67
+61
+68
+85
 ```
-
-![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_04.png)
-
-### 예제 입력 3
-```
-0 2
-1 4
-```
-
-### 예제 출력 3
-```
-5
-```
-
-![ALT_TEXT](https://github.com/ISKU/2nd-Thinking-PC/blob/master/E/img/IMG_05.png)
 
 ### 분류
-BFS
+2D Prefix Sum, Range Sum Query 2D
 
 ### 만든이
 충남대학교 컴퓨터공학과 이종화 ([willook@GitHub](https://github.com/willook), [willook@BOJ](https://www.acmicpc.net/user/willook))

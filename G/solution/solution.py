@@ -1,48 +1,45 @@
-T = input()
-letter = [ 0 for i in range(26) ]
-for i in range(len(T)):
-   letter[ord(T[i]) - ord('A')] += 1
+import queue;
 
-N = int(input())
-books = []
-for i in range(N):
-    C, W = input().split()
+dy = [ -3, -3, -2, 2, 3, 3, 2, -2 ]
+dx = [ -2, 2, 3, 3, 2, -2, -3, -3 ]
+ny = [ -2, -2, -1, 1, 2, 2, 1, -1 ]
+nx = [ -1, 1, 2, 2, 1, -1, -2, -2 ]
+ay = [ -1, -1, 0, 0, 1, 1, 0, 0 ]
+ax = [ 0, 0, 1, 1, 0, 0, -1, -1 ]
 
-    temp = [ 0 for i in range(26) ]
-    for j in range(len(W)):
-        temp[ord(W[j]) - ord('A')] += 1
+def bfs():
+    q = queue.Queue()
+    visited = [[False for rows in range(9)] for cols in range(10)]
 
-    books.append((int(C), W, temp))
+    q.put((R1, C1, 0))
+    visited[R1][C1] = True   
+    
+    while not q.empty():
+        u = q.get()
+        if (u[0] == R2 and u[1] == C2):
+            return u[2]
 
-answer = 123456789
-size = 1 << N
-for n in range(size):
-    cost = 0
-    count = [ 0 for i in range(26) ]
+        for i in range(0, 8):
+            y = u[0] + ay[i]
+            x = u[1] + ax[i]
+            if (y < 0 or y >= 10 or x < 0 or x >= 9 or (y == R2 and x == C2)):
+                continue
 
-    idx = 0
-    d = 1
-    while True:
-        if d > n:
-            break
+            y = u[0] + ny[i]
+            x = u[1] + nx[i]
+            if (y < 0 or y >= 10 or x < 0 or x >= 9 or (y == R2 and x == C2)):
+                continue
 
-        if (n & d) == d:
-            cost += books[idx][0]
-            for i in range(26):
-                count[i] += books[idx][2][i]
+            y = u[0] + dy[i]
+            x = u[1] + dx[i]
+            if (y < 0 or y >= 10 or x < 0 or x >= 9 or visited[y][x]):
+                continue
 
-        idx += 1
-        d <<= 1
+            q.put((y, x, u[2] + 1))
+            visited[y][x] = True
 
-    check = True
-    for i in range(26):
-        if count[i] < letter[i]:
-            check = False
-            break
-    if check:
-        answer = min([answer, cost])
+    return -1
 
-if answer == 123456789:
-    print(-1)
-else:
-    print(answer)
+R1, C1 = map(int, input().split())
+R2, C2 = map(int, input().split())
+print(bfs())
