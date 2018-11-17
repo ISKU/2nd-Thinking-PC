@@ -4,9 +4,26 @@
 
 **제 2회 생각하는 프로그래밍 대회**
 
-- 운영진: 황태욱, 조성환, 정윤수, 임진수, 한명우, 김민호, 김정선, 김주성, 정지수
-- 문제: 김민호([isku](https://acmicpc.net/user/isku)), 이종화([willook](https://acmicpc.net/user/willook)), 김혁진([gurwls9628](https://acmicpc.net/user/gurwls9628)), 정지수([bluedao](https://acmicpc.net/user/bluedao)), 전승민
+- 운영진: 황태욱, 조성환, 정윤수, 임진수, 한명우, 김정선, 김주성, 정지수
+- 문제: 김민호([isku](https://acmicpc.net/user/isku)), 이종화([willook](https://acmicpc.net/user/willook)), 김혁진([gurwls9628](https://acmicpc.net/user/gurwls9628)), 정지수([bluedao](https://acmicpc.net/user/bluedao)), 전승민([zzz845zz](https://www.acmicpc.net/user/zzz845zz))
 
+----------
+
+일반 리그
+- 대상: 21번팀 (조정진, 임호정, 한진영)
+- 최우수상: CheeUp (최윤수, 윤동현, 정석현)
+- 우수상: 데브데이우승팀 (조수환, 김재훈, 이현준)
+
+주니어 리그
+- 대상: 카카오미니내꺼 (강시온, 이동겸, 이동윤)
+- 최우수상: 3등이후는 상품없나요? (김지현, 김소영, 송현진)
+- 우수상: 이중에 공주가 있다 (하상호, 임건우, 정재성)
+
+----------
+
+:bulb: Baekjoon Online Judge
+- [Score Board](https://www.acmicpc.net/contest/board/355)
+- [Problems](https://www.acmicpc.net/category/detail/1954)
 
 ----------
 
