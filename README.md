@@ -4,8 +4,8 @@
 
 **제 2회 생각하는 프로그래밍 대회**
 
-- 운영진: 황태욱, 조성환, 정윤수, 임진수, 한명우, 김정선, 김주성, 정지수
-- 문제: 김민호([isku](https://acmicpc.net/user/isku)), 이종화([willook](https://acmicpc.net/user/willook)), 김혁진([gurwls9628](https://acmicpc.net/user/gurwls9628)), 정지수([bluedao](https://acmicpc.net/user/bluedao)), 전승민([zzz845zz](https://www.acmicpc.net/user/zzz845zz))
+- 운영진: 황태욱, 조성환, [정윤수](https://github.com/GoodLuckDay), [임진수](https://github.com/Jinsu-L), 한명우, 김정선, [김주성](https://github.com/Sigmaflo2), [정지수](https://github.com/someonewho)
+- 문제: [김민호](https://github.com/isku)([isku](https://acmicpc.net/user/isku)), [이종화](https://github.com/willook)([willook](https://acmicpc.net/user/willook)), [김혁진](https://github.com/HyeockJinKim)([gurwls9628](https://acmicpc.net/user/gurwls9628)), [정지수](https://github.com/someonewho)([bluedao](https://acmicpc.net/user/bluedao)), 전승민([zzz845zz](https://www.acmicpc.net/user/zzz845zz))
 
 ----------
 
@@ -18,6 +18,10 @@
 - 대상: 카카오미니내꺼 (강시온, 이동겸, 이동윤)
 - 최우수상: 3등이후는 상품없나요? (김지현, 김소영, 송현진)
 - 우수상: 이중에 공주가 있다 (하상호, 임건우, 정재성)
+
+특별상
+- 미대형 (권대원, 전형진, 김미지)
+- tenPossible (김산하, 구재빈, 김석희)
 
 ----------
 
