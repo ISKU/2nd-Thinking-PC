@@ -89,7 +89,7 @@
 ```
 
 ### 분류
-Find Regularity
+Divide and Conquer, Find Regularity
 
 ### 만든이
 충남대학교 컴퓨터공학과 전승민 ([zzz845zz@BOJ](https://www.acmicpc.net/user/zzz845zz))
